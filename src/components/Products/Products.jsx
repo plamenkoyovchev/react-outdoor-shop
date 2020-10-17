@@ -35,7 +35,10 @@ const Products = () => {
         </select>
       </section>
       <section id="products">
-        {products && products.map((p) => <Product key={p.id} {...p} />)}
+        {products &&
+          products.map((p) => (
+            <Product key={p.id} {...p} category={category} />
+          ))}
       </section>
     </>
   );
