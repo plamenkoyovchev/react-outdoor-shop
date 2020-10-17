@@ -2,7 +2,7 @@ import React from "react";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../../Spinner";
 import Product from "../Product/Product";
-
+import NotFound from "../NotFound/NotFound";
 import { useParams } from "react-router-dom";
 
 const Products = () => {
@@ -17,6 +17,10 @@ const Products = () => {
 
   if (loading) {
     return <Spinner />;
+  }
+
+  if (!products || products.length === 0) {
+    return <NotFound />;
   }
 
   return (
