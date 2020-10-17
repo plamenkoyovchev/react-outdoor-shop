@@ -3,9 +3,12 @@ import useFetch from "../../hooks/useFetch";
 import Spinner from "../../Spinner";
 import Product from "../Product/Product";
 
+import { useParams } from "react-router-dom";
+
 const Products = () => {
+  const { category } = useParams();
   const { data: products, loading, error } = useFetch(
-    "products?category=shoes"
+    `products?category=${category}`
   );
 
   if (error) {
