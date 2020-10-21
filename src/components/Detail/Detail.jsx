@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../../Spinner";
@@ -7,6 +7,7 @@ import NotFound from "../NotFound/NotFound";
 const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [sku, setSku] = useState("");
   const { loading, error, data: product } = useFetch(`products/${id}`);
 
   if (loading) {
@@ -26,8 +27,16 @@ const Detail = () => {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p id="price">${product.price}</p>
+
+      <select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
+          <option value="">Remove</option>
+          {product.skus.map(({sku, size}) => (
+            <option key={sku} value={sku}>{size}</option>
+          ))}
+      </select>
+
       <p>
-        <button className="btn btn-primary" onClick={() => navigate("/cart")}>
+        <button disabled={!sku} className="btn btn-primary" onClick={() => navigate("/cart")}>
           Add to Cart
         </button>
       </p>
