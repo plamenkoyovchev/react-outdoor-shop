@@ -20,7 +20,7 @@ const useFetchAll = (urls) => {
                 .then((json) => setData(json))
                 .catch((e) => setError(e))
                 .finally(() => setLoading(false));
-    }, [urls]);
+    }, []);
 
     return {data, loading, error};
 };
