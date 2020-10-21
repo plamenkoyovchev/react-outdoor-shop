@@ -2,9 +2,10 @@ import React from "react";
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import Products from "./components/Products/Products";
 
 import { Routes, Route } from "react-router-dom";
+import Welcome from "./components/Welcome/Welcome";
+import Products from "./components/Products/Products";
 import Detail from "./components/Detail/Detail";
 import Cart from "./components/Cart/Cart";
 
@@ -15,7 +16,7 @@ export default function App() {
         <Header />
         <main>
           <Routes>
-            <Route path="/" element={<h1>Welcome to Outdoor Shop</h1>} />
+            <Route path="/" element={<Welcome />} />
             <Route path="/:category" element={<Products />} />
             <Route path="/:category/:id" element={<Detail />} />
             <Route path="/cart" element={<Cart />} />
