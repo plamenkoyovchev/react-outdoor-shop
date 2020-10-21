@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import Spinner from "../../Spinner";
 import NotFound from "../NotFound/NotFound";
 
-const Detail = () => {
+const Detail = ({addToCart}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [sku, setSku] = useState("");
@@ -36,7 +36,11 @@ const Detail = () => {
       </select>
 
       <p>
-        <button disabled={!sku} className="btn btn-primary" onClick={() => navigate("/cart")}>
+        <button disabled={!sku} className="btn btn-primary" 
+                onClick={() => {
+                  addToCart(product.id, sku);
+                  navigate("/cart");
+        }}>
           Add to Cart
         </button>
       </p>
