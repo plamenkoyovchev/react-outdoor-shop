@@ -22,9 +22,9 @@ const Cart = ({cart, updateQuantity}) => {
         <img src={`/images/${image}`} alt={name} />
         <h3>{name}</h3>
         <p>Size: {size}</p>
-        <p>Price <strong>${price}</strong></p>
+        <p>Price: <strong>${price}</strong></p>
         <p>
-         <label>Quantity</label>
+         <label>Quantity: </label>
          <select value={quantity} onChange={(e) => updateQuantity(sku, parseInt(e.target.value))}>
          <option value={0}>0</option>
           <option value={1}>1</option>
