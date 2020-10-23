@@ -23,7 +23,17 @@ const Cart = ({cart, updateQuantity}) => {
         <h3>{name}</h3>
         <p>Size: {size}</p>
         <p>Price <strong>${price}</strong></p>
-        <p>Quantity: {quantity}</p>
+        <p>
+         <label>Quantity</label>
+         <select value={quantity} onChange={(e) => updateQuantity(sku, parseInt(e.target.value))}>
+         <option value={0}>0</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+         </select>
+        </p>
       </li>);
   };
 
