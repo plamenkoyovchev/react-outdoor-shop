@@ -11,7 +11,14 @@ import Cart from "./components/Cart/Cart";
 import { useState } from "react";
 
 export default function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+      try {
+        return JSON.parse(localStorage.getItem("cart")) ?? [];
+      } catch {
+        console.warn("Can't read cart items!");
+        return [];
+      }
+  });
 
   const addToCart = (id, sku) => {
     setCart((cartItems) => {
@@ -21,7 +28,7 @@ export default function App() {
       } else {
         return [...cartItems, {id, sku, quantity: 1}];
       }
-    })
+    });
   }
 
   return (
