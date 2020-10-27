@@ -37,6 +37,6 @@ export default useFetchAll;
 const areEqual = (arrayA, arrayB) => {
     return (
         arrayA.length === arrayB.length && 
-        arrayA.every((value, index) => value === arrayB[index]);
+        arrayA.every((value, index) => value === arrayB[index])
     );
 }
