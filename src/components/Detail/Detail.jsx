@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import Spinner from "../../Spinner";
 import NotFound from "../NotFound/NotFound";
 
-const Detail = ({addToCart}) => {
+const Detail = ({ dispatch }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [sku, setSku] = useState("");
@@ -29,18 +29,29 @@ const Detail = ({addToCart}) => {
       <p id="price">${product.price}</p>
 
       <select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
-          <option value="">Remove</option>
-          {product.skus.map(({sku, size}) => (
-            <option key={sku} value={sku}>{size}</option>
-          ))}
+        <option value="">--Choose size--</option>
+        {product.skus.map(({ sku, size }) => (
+          <option key={sku} value={sku}>
+            {size}
+          </option>
+        ))}
       </select>
 
       <p>
-        <button disabled={!sku} className="btn btn-primary" 
-                onClick={() => {
-                  addToCart(product.id, sku);
-                  navigate("/cart");
-        }}>
+        <button
+          disabled={!sku}
+          className="btn btn-primary"
+          onClick={() => {
+            dispatch({
+              type: "ADD",
+              payload: {
+                id: product.id,
+                sku,
+              },
+            });
+            navigate("/cart");
+          }}
+        >
           Add to Cart
         </button>
       </p>
