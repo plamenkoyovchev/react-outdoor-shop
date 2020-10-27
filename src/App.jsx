@@ -9,6 +9,7 @@ import Products from "./components/Products/Products";
 import Detail from "./components/Detail/Detail";
 import Cart from "./components/Cart/Cart";
 import cartReducer from "./store/reducers/cartReducer";
+import Checkout from "./components/Checkout/Checkout";
 
 const initialState = {
   cart: [],
@@ -39,6 +40,7 @@ export default function App() {
               path="/cart"
               element={<Cart cart={cart} dispatch={dispatch} />}
             />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </main>
       </div>
