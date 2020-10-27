@@ -5,9 +5,9 @@ const Checkout = () => {
         <>
             <h2>Checkout</h2>
             <form onSubmit={() => {}}>
-                <div>
-                    <label>Country</label>
-                    <select>
+                <div className="form-group">
+                    <label className="form-label">Country</label>
+                    <select className="form-control">
                         <option value={0}>--Choose Country--</option>
                         <option value={1}>Bulgaria</option>
                         <option value={2}>Germany</option>
@@ -16,13 +16,13 @@ const Checkout = () => {
                         <option value={5}>Switzerland</option>
                     </select>
                 </div>
-                <div>
-                    <label>City</label>
-                    <input name="city" />
+                <div className="form-group">
+                    <label className="form-label">City</label>
+                    <input name="city" className="form-control"/>
                 </div>
-                <div>
-                    <label>Address</label>
-                    <input name="address" />
+                <div className="form-group">
+                    <label className="form-label">Address</label>
+                    <input name="address" className="form-control"/>
                 </div>
                 <div>
                     <input type="submit" className="btn btn-primary" />
