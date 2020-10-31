@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { STATUS } from "./Status";
 
+import { saveShippingAddress } from "../../services/shippingService";
+
 const initialState = {
   country: 0,
   city: "",
@@ -10,9 +12,17 @@ const initialState = {
 const Checkout = () => {
   const [checkoutData, setCheckoutData] = useState(initialState);
   const [status, setStatus] = useState(STATUS.IDLE);
+  const [error, setError] = useState(null);
 
-  const onFormSubmitHandler = (e) => {
+  const onFormSubmitHandler = async (e) => {
     e.preventDefault();
+    setStatus(STATUS.SUBMITTING);
+
+    try {
+      await saveShippingAddress(checkoutData);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const onChangeHandler = (e) => {
@@ -26,6 +36,10 @@ const Checkout = () => {
   };
 
   const onBlurHandler = (e) => {};
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <h2>
@@ -69,7 +83,12 @@ const Checkout = () => {
           />
         </div>
         <div>
-          <input type="submit" className="btn btn-primary" />
+          <input
+            type="submit"
+            className="btn btn-primary"
+            value="Checkout"
+            disabled={status === STATUS.SUBMITTING}
+          />
         </div>
       </form>
     </h2>
