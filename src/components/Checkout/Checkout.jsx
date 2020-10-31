@@ -21,8 +21,10 @@ const Checkout = ({ emptyCart }) => {
     try {
       await saveShippingAddress(checkoutData);
       emptyCart();
+      setStatus(STATUS.COMPLETED);
     } catch (error) {
       setError(error);
+      setStatus(STATUS.SUBMITTED);
     }
   };
 
@@ -40,6 +42,10 @@ const Checkout = ({ emptyCart }) => {
 
   if (error) {
     throw error;
+  }
+
+  if (status === STATUS.COMPLETED) {
+    return <h1>Thank you for your order!</h1>;
   }
 
   return (
