@@ -37,6 +37,11 @@ const cartReducer = (state, action) => {
 
             return state;
         }
+        case "EMPTY":
+            return {
+                ...state,
+                cart: []
+            }
         default:
             console.warn('action.type is not found');
             return state;
