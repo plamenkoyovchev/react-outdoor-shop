@@ -9,7 +9,7 @@ const initialState = {
   address: "",
 };
 
-const Checkout = () => {
+const Checkout = ({ emptyCart }) => {
   const [checkoutData, setCheckoutData] = useState(initialState);
   const [status, setStatus] = useState(STATUS.IDLE);
   const [error, setError] = useState(null);
@@ -20,6 +20,7 @@ const Checkout = () => {
 
     try {
       await saveShippingAddress(checkoutData);
+      emptyCart();
     } catch (error) {
       setError(error);
     }

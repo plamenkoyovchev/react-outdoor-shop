@@ -24,6 +24,8 @@ export default function App() {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const { cart } = state;
 
+  const emptyCart = () => dispatch({ type: "EMPTY" });
+
   return (
     <>
       <div className="content">
@@ -40,7 +42,10 @@ export default function App() {
               path="/cart"
               element={<Cart cart={cart} dispatch={dispatch} />}
             />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route
+              path="/checkout"
+              element={<Checkout emptyCart={emptyCart} />}
+            />
           </Routes>
         </main>
       </div>
