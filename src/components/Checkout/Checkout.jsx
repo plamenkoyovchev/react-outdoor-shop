@@ -13,6 +13,7 @@ const Checkout = ({ emptyCart }) => {
   const [checkoutData, setCheckoutData] = useState(initialState);
   const [status, setStatus] = useState(STATUS.IDLE);
   const [error, setError] = useState(null);
+  const [touchedFields, setTouchedFields] = useState({});
 
   // Derived state
   const validationErrors = getErrors(checkoutData);
@@ -44,7 +45,15 @@ const Checkout = ({ emptyCart }) => {
     });
   };
 
-  const onBlurHandler = (e) => {};
+  const onBlurHandler = (e) => {
+    e.persist();
+    setTouchedFields((touched) => {
+      return {
+        ...touched,
+        [e.target.name]: true,
+      };
+    });
+  };
 
   if (error) {
     throw error;
@@ -84,6 +93,10 @@ const Checkout = ({ emptyCart }) => {
             <option value={4}>France</option>
             <option value={5}>Switzerland</option>
           </select>
+          <p role="alert" className="validation">
+            {(touchedFields.country || status === STATUS.SUBMITTED) &&
+              validationErrors.country}
+          </p>
         </div>
         <div className="form-group">
           <label className="form-label">City</label>
@@ -94,6 +107,10 @@ const Checkout = ({ emptyCart }) => {
             onChange={onChangeHandler}
             onBlur={onBlurHandler}
           />
+          <p role="alert" className="validation">
+            {(touchedFields.city || status === STATUS.SUBMITTED) &&
+              validationErrors.city}
+          </p>
         </div>
         <div className="form-group">
           <label className="form-label">Address</label>
@@ -104,6 +121,10 @@ const Checkout = ({ emptyCart }) => {
             onChange={onChangeHandler}
             onBlur={onBlurHandler}
           />
+          <p role="alert" className="validation">
+            {(touchedFields.address || status === STATUS.SUBMITTED) &&
+              validationErrors.address}
+          </p>
         </div>
         <div>
           <input

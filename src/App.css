@@ -2,6 +2,10 @@ html {
   height: 100%;
 }
 
+p {
+  margin: 0;
+}
+
 body {
   font-family: open sans, sans-serif;
   font-size: 14px;
@@ -172,7 +176,6 @@ fieldset[disabled] .btn {
 
 p[role="alert"] {
   display: inline;
-  margin-left: 10px;
   color: red;
 }
 
@@ -189,12 +192,13 @@ form > div {
 }
 
 form {
-  width: 300px;
+  width: 600px;
 }
 
 form .form-group {
   display: flex;
   justify-content: flex-end;
+  margin: 30px;
 }
 
 .form-group .form-label {
@@ -204,6 +208,11 @@ form .form-group {
 
 .form-group .form-control {
   flex: 2;
+}
+
+.form-group .validation {
+  flex: 3;
+  margin-left: 10px;
 }
 
 .lds-container {
