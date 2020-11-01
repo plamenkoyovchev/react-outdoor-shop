@@ -14,16 +14,22 @@ const Checkout = ({ emptyCart }) => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [error, setError] = useState(null);
 
+  // Derived state
+  const validationErrors = getErrors(checkoutData);
+  const isValid = Object.keys(validationErrors).length === 0;
+
   const onFormSubmitHandler = async (e) => {
     e.preventDefault();
     setStatus(STATUS.SUBMITTING);
-
-    try {
-      await saveShippingAddress(checkoutData);
-      emptyCart();
-      setStatus(STATUS.COMPLETED);
-    } catch (error) {
-      setError(error);
+    if (isValid) {
+      try {
+        await saveShippingAddress(checkoutData);
+        emptyCart();
+        setStatus(STATUS.COMPLETED);
+      } catch (error) {
+        setError(error);
+      }
+    } else {
       setStatus(STATUS.SUBMITTED);
     }
   };
@@ -49,8 +55,18 @@ const Checkout = ({ emptyCart }) => {
   }
 
   return (
-    <h2>
+    <>
       <h2>Checkout</h2>
+      {!isValid && status === STATUS.SUBMITTED && (
+        <div role="alert">
+          <p>Please fix errors:</p>
+          <ul>
+            {Object.keys(validationErrors).map((key) => (
+              <li key={key}>{validationErrors[key]}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       <form onSubmit={onFormSubmitHandler}>
         <div className="form-group">
           <label className="form-label">Country</label>
@@ -98,8 +114,26 @@ const Checkout = ({ emptyCart }) => {
           />
         </div>
       </form>
-    </h2>
+    </>
   );
 };
 
 export default Checkout;
+
+const getErrors = (checkoutData) => {
+  const errors = {};
+
+  if (+checkoutData.country === 0) {
+    errors.country = "Country is required";
+  }
+
+  if (!checkoutData.city) {
+    errors.city = "City is required";
+  }
+
+  if (!checkoutData.address) {
+    errors.address = "Address is required";
+  }
+
+  return errors;
+};
